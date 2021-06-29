@@ -57,7 +57,7 @@
 FileMetaData = f"""select ControlTableKey, ProcessName, SourceSchemaName, SourceTableName, TargetTableSchema, TargetTableName, ContainerName, Delimiter from  ProcessMetadata.ControlTable where ControlTableKey = {ControlTableKey} and SourceTableName = '{SourceTableName}'"""
 FileMetaData = pd.read_sql(FileMetaData,conn)
 
-
+#sets variables from data frame
 SourceSchemaName = FileMetaData.loc[FileMetaData.index[0], 'SourceSchemaName']
 SourceTableName = FileMetaData.loc[FileMetaData.index[0], 'SourceTableName']
 TargetTableSchema = FileMetaData.loc[FileMetaData.index[0], 'TargetTableSchema']
@@ -68,7 +68,7 @@ CSV_Delimiter = ''
 TempTableName = SourceTableName
 StorageAccount = "rmcelhinnystorage"
 
-#FileColumnData
+#Metadata for Table
 TableColumns = f"select OrdinalPosition, SourceColumn, SourceColumnDataType,Length, Scale, Nullable, DatabricksDataTypeExternal,DatabricksDataType,SQLDataType from ProcessMetadata.SourceTableColumns where ControlTableKey = {ControlTableKey} and SourceTableName = '{SourceTableName}'"
 TableColumns = pd.read_sql(TableColumns,conn)
 #TableColumns.display()
